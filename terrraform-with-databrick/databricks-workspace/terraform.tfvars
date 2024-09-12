@@ -1,0 +1,8 @@
+azure_subscription_id = "b35f9dfe-a181-45df-8aa3-c5ca1482d68b"
+azure_client_id = "12182b31-2a56-4c8b-9af3-2b64e93a287e"
+azure_client_secret = "TUY8Q~goLLgTdR3.sYpk6cpT9hnhasnXctVOmdve"
+azure_tenant_id = "29da77b8-c32f-4c14-9a02-e7bd026dd69f"
+resource_group_name = "rgdatabrickdemo"
+location = "southeastasia"
+databricks_workspace_name = "dbworkspace1"
+databricks_sku = "premium"
