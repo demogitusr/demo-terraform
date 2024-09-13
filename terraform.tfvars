@@ -9,6 +9,8 @@ environment           = "dev"
 rglocation            = "uksouth"
 
 
+## KV value ##
+sku_name = "standard"
 
 tags = {
   Project     = "Databricks-Demo"

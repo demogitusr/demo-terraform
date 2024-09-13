@@ -78,6 +78,12 @@ variable "environment" {
   type        = string
 }
 
+variable "sku_name" {
+  description = "value"
+  type = string
+  default = "standard"
+}
+
 ## Additional when need multi workspace ##
 variable "create_additional_workspaces" {
   type    = bool

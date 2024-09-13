@@ -1,10 +1,12 @@
 ## Create single workspce ##
 resource "azurerm_databricks_workspace" "myworkspace" {
-  name                = "${local.prefix}-workspace"
+  name                = "${local.prefix}-workspace-1"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   sku                 = var.databricks_sku
   tags                = local.tags
+  managed_resource_group_name = "databricks-rg-${random_string.naming.result}"
+
   custom_parameters {
     no_public_ip                                         = var.no_public_ip
     virtual_network_id                                   = azurerm_virtual_network.this.id
@@ -28,6 +30,8 @@ resource "azurerm_databricks_workspace" "additional_workspaces" {
   location            = azurerm_resource_group.this.location
   sku                 = var.databricks_sku
   tags                = local.tags
+  managed_resource_group_name = "databricks-rg-${random_string.naming.result}-${count.index + 2}"
+  
   custom_parameters {
     no_public_ip = var.no_public_ip
     # virtual_network_id                                   = azurerm_virtual_network.this.id
