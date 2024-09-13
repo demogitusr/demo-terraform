@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "databrick-workspace",
+			"path": "."
+		},
+		{
+			"name": "demo-terraform",
+			"path": "../../demo-terraform"
+		}
+	],
+	"settings": {}
+}
