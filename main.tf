@@ -1,21 +1,8 @@
-# Azure Provider source and version being used
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">=3.0.0"
-    }
-    databricks = {
-      source  = "databricks/databricks"
-      version = ">=1.21.0"
-    }
-  }
-}
 
 resource "random_string" "naming" {
   special = false
   upper   = false
-  length  = 4
+  length  = 6
 }
 
 resource "azurerm_resource_group" "this" {
@@ -28,7 +15,7 @@ locals {
   prefix          = join("-", [var.workspace_prefix, "${random_string.naming.result}"])
   location        = var.rglocation
   dbfsname        = join("", [var.dbfs_prefix, "${random_string.naming.result}"]) // dbfs name must not have special chars
-  # workspace_names = [for i in range(var.additional_workspace_count) : "${local.prefix}-workspace-${i + 2}"]
+  workspace_names = [for i in range(var.additional_workspace_count) : "${local.prefix}-workspace-${i + 2}"]
   // tags that are propagated down to all resources
   tags = merge({
     Environment = "Testing"
@@ -66,4 +53,15 @@ resource "databricks_token" "pat" {
   provider         = databricks.workspace
   comment          = "Terraform Automation for Workspace ${count.index == 0 ? "Main" : count.index}"
   lifetime_seconds = 7776000 // 90 days
+}
+
+
+##Call module network
+module "network" {
+  source              = "./modules/network"
+  prefix              = var.prefix
+  rglocation          = var.rglocation
+  resource_group_name = azurerm_resource_group.this.name
+  vnet_cidr           = var.cidr
+  tags                = var.tags
 }

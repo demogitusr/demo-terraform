@@ -39,11 +39,15 @@ variable "cidr" {
   type        = string
   default     = "10.179.0.0/20"
   description = "Network range for created VNet"
+  validation {
+    condition     = can(cidrhost(var.cidr, 0))
+    error_message = "Must be a valid IPv4 CIDR block address."
+  }
 }
 
 variable "tags" {
   type        = map(string)
-  description = "Optional tags to add to resources"
+  description = "A mapping of tags to assign to the resource"
   default     = {}
 }
 
@@ -59,6 +63,7 @@ variable "azure_client_id" {
 variable "azure_client_secret" {
   description = "azure client secret"
   type        = string
+  sensitive   = true
 }
 
 variable "azure_tenant_id" {
@@ -81,8 +86,8 @@ variable "environment" {
 
 variable "sku_name" {
   description = "value"
-  type = string
-  default = "standard"
+  type        = string
+  default     = "standard"
 }
 
 ## Additional when need multi workspace ##
@@ -101,6 +106,10 @@ variable "databricks_sku" {
   description = "The SKU to use for the Databricks workspace"
   type        = string
   default     = "premium"
+  validation {
+    condition     = contains(["standard", "premium", "trial"], var.databricks_sku)
+    error_message = "Allowed values for databricks_sku are 'standard', 'premium', or 'trial'."
+  }
 }
 variable "vnet_id" {
   description = "The ID of the Virtual Network where this Databricks workspace should be created"
@@ -118,4 +127,9 @@ variable "public_subnet_name" {
   description = "The name of the Public Subnet within the Virtual Network"
   type        = string
   default     = null
+}
+
+variable "prefix" {
+  type        = string
+  description = "Prefix for resource names"
 }

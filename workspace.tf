@@ -1,21 +1,21 @@
 ## Create single workspce ##
 resource "azurerm_databricks_workspace" "myworkspace" {
-  name                = "${local.prefix}-workspace-1"
+  name                = "adb-${random_string.suffix.result}-workspace-1"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   sku                 = var.databricks_sku
-  tags                = local.tags
-  managed_resource_group_name = "databricks-rg-${random_string.naming.result}"
+  # tags                = local.tags
+  managed_resource_group_name = "databricks-rg-${random_string.suffix.result}"
 
   custom_parameters {
     no_public_ip                                         = var.no_public_ip
-    virtual_network_id                                   = azurerm_virtual_network.this.id
-    private_subnet_name                                  = azurerm_subnet.private.name
-    public_subnet_name                                   = azurerm_subnet.public.name
-    public_subnet_network_security_group_association_id  = azurerm_subnet_network_security_group_association.public.id
-    private_subnet_network_security_group_association_id = azurerm_subnet_network_security_group_association.private.id
+    virtual_network_id                                   = module.network.vnet_id
+    private_subnet_name                                  = module.network.private_subnet_name
+    public_subnet_name                                   = module.network.public_subnet_name
+    public_subnet_network_security_group_association_id  = module.network.public_subnet_nsg_association_id
+    private_subnet_network_security_group_association_id = module.network.private_subnet_nsg_association_id
     storage_account_name                                 = local.dbfsname
-    
+
   }
   # We need this, otherwise destroy doesn't cleanup things correctly
   # depends_on = [
@@ -26,23 +26,23 @@ resource "azurerm_databricks_workspace" "myworkspace" {
 ## Additional when need multi workspace ##
 resource "azurerm_databricks_workspace" "additional_workspaces" {
   count               = var.additional_workspace_count
-  name                = "${local.prefix}-workspace-${count.index + 2}"
+  name                = "adb-${random_string.suffix.result}-workspace-${count.index + 2}"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   sku                 = var.databricks_sku
-  tags                = local.tags
-  managed_resource_group_name = "databricks-rg-${random_string.naming.result}-${count.index + 2}"
+  # tags                = local.tags
+  managed_resource_group_name = "databricks-rg-${random_string.suffix.result}-${count.index + 2}"
 
   custom_parameters {
     no_public_ip = var.no_public_ip
     # virtual_network_id                                   = azurerm_virtual_network.this.id
     # private_subnet_name                                  = azurerm_subnet.private.name
     # public_subnet_name                                   = azurerm_subnet.public.name
-    virtual_network_id                                   = var.vnet_id
-    private_subnet_name                                  = var.private_subnet_name
-    public_subnet_name                                   = var.public_subnet_name
-    public_subnet_network_security_group_association_id  = azurerm_subnet_network_security_group_association.public.id
-    private_subnet_network_security_group_association_id = azurerm_subnet_network_security_group_association.private.id
+    virtual_network_id                                   = module.network.vnet_id
+    private_subnet_name                                  = module.network.private_subnet_name
+    public_subnet_name                                   = module.network.public_subnet_name
+    public_subnet_network_security_group_association_id  = module.network.public_subnet_nsg_association_id
+    private_subnet_network_security_group_association_id = module.network.private_subnet_nsg_association_id
     storage_account_name                                 = local.dbfsname
   }
   # We need this, otherwise destroy doesn't cleanup things correctly

@@ -1,5 +1,5 @@
 # dbfs_prefix           = "dbfs"
-cidr                  = "10.179.0.0/20"
+cidr                  = "10.0.0.0/20"
 azure_client_id       = "5ee68e82-9124-4b8b-a3f8-63f5d211ae22"
 azure_client_secret   = "jIM8Q~8qlbuMcutKqe~rg6tmuVMlBSeBwYztcbwn"
 azure_tenant_id       = "29da77b8-c32f-4c14-9a02-e7bd026dd69f"
@@ -19,5 +19,5 @@ tags = {
 }
 
 ### multi workspace ##
-additional_workspace_count = "3"
+additional_workspace_count = "0"
 databricks_sku             = "premium"
