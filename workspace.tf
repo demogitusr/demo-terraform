@@ -15,6 +15,7 @@ resource "azurerm_databricks_workspace" "myworkspace" {
     public_subnet_network_security_group_association_id  = azurerm_subnet_network_security_group_association.public.id
     private_subnet_network_security_group_association_id = azurerm_subnet_network_security_group_association.private.id
     storage_account_name                                 = local.dbfsname
+    
   }
   # We need this, otherwise destroy doesn't cleanup things correctly
   # depends_on = [
@@ -31,7 +32,7 @@ resource "azurerm_databricks_workspace" "additional_workspaces" {
   sku                 = var.databricks_sku
   tags                = local.tags
   managed_resource_group_name = "databricks-rg-${random_string.naming.result}-${count.index + 2}"
-  
+
   custom_parameters {
     no_public_ip = var.no_public_ip
     # virtual_network_id                                   = azurerm_virtual_network.this.id

@@ -66,6 +66,7 @@ variable "azure_tenant_id" {
   type        = string
 }
 
+
 variable "create_duration" {
   description = "Value of time wating per secound"
   type        = string

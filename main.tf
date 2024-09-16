@@ -28,7 +28,7 @@ locals {
   prefix          = join("-", [var.workspace_prefix, "${random_string.naming.result}"])
   location        = var.rglocation
   dbfsname        = join("", [var.dbfs_prefix, "${random_string.naming.result}"]) // dbfs name must not have special chars
-  workspace_names = [for i in range(var.additional_workspace_count) : "${local.prefix}-workspace-${i + 2}"]
+  # workspace_names = [for i in range(var.additional_workspace_count) : "${local.prefix}-workspace-${i + 2}"]
   // tags that are propagated down to all resources
   tags = merge({
     Environment = "Testing"

@@ -24,6 +24,7 @@ provider "databricks" {
 ## For KV ###
 data "azurerm_key_vault_secret" "databricks_host" {
   name         = "databricks-host"
+  # name         = azurerm_databricks_workspace.myworkspace.workspace_url
   key_vault_id = azurerm_key_vault.key.id
 }
 
