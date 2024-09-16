@@ -23,12 +23,20 @@ provider "databricks" {
 
 ## For KV ###
 data "azurerm_key_vault_secret" "databricks_host" {
+<<<<<<< HEAD
   #name         = "databricks-host"
   name         = azurerm_databricks_workspace.myworkspace.workspace_url
+=======
+  name         = "databricks-host"
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
   key_vault_id = azurerm_key_vault.key.id
 }
 
 data "azurerm_key_vault_secret" "databricks_token" {
+<<<<<<< HEAD
   name         = "databricks-token-${azurerm_databricks_workspace.myworkspace.name}"
+=======
+  name         = "databricks-token"
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
   key_vault_id = azurerm_key_vault.key.id
 }

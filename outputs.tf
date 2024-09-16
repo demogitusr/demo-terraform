@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Main Workspace Outputs
 output "main_workspace_resource_id" {
   description = "The Azure resource ID of the main Databricks workspace"
@@ -20,10 +21,42 @@ output "additional_workspace_urls" {
 
 output "additional_workspace_ids" {
   description = "The Azure resource IDs of additional Databricks workspaces"
+=======
+output "databricks_azure_workspace_resource_id" {
+  value = azurerm_databricks_workspace.myworkspace.id
+}
+
+output "workspace_url" {
+  value = "https://${azurerm_databricks_workspace.myworkspace.workspace_url}/"
+}
+
+output "module_cluster_id" {
+  value = module.auto_scaling_cluster_example.cluster_id
+}
+
+output "key_vault_name" {
+  value = azurerm_key_vault.key.name
+}
+
+output "databricks_workspace_url" {
+  value = azurerm_databricks_workspace.myworkspace.workspace_url
+}
+
+## Additional when need multi workspace ##
+output "databrick_additional_workspace_urls" {
+  value = {
+    for i, workspace in azurerm_databricks_workspace.additional_workspaces :
+    "workspace_${i + 2}" => workspace.workspace_url
+  }
+}
+
+output "databrick_additional_workspace_ids" {
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
   value = {
     for i, workspace in azurerm_databricks_workspace.additional_workspaces :
     "workspace_${i + 2}" => workspace.id
   }
+<<<<<<< HEAD
 }
 
 # Cluster Outputs
@@ -100,4 +133,6 @@ output "databricks_token_secret_name" {
   description = "The name of the Key Vault secret containing the Databricks access token"
   value       = azurerm_key_vault_secret.databricks_token[0].name
   sensitive   = true
+=======
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 }

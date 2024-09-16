@@ -1,8 +1,28 @@
+<<<<<<< HEAD
+=======
+# Azure Provider source and version being used
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">=3.0.0"
+    }
+    databricks = {
+      source  = "databricks/databricks"
+      version = ">=1.21.0"
+    }
+  }
+}
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 
 resource "random_string" "naming" {
   special = false
   upper   = false
+<<<<<<< HEAD
   length  = 6
+=======
+  length  = 4
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 }
 
 resource "azurerm_resource_group" "this" {
@@ -53,6 +73,7 @@ resource "databricks_token" "pat" {
   provider         = databricks.workspace
   comment          = "Terraform Automation for Workspace ${count.index == 0 ? "Main" : count.index}"
   lifetime_seconds = 7776000 // 90 days
+<<<<<<< HEAD
 }
 
 
@@ -64,4 +85,6 @@ module "network" {
   resource_group_name = azurerm_resource_group.this.name
   vnet_cidr           = var.cidr
   tags                = var.tags
+=======
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 }

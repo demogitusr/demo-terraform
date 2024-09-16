@@ -39,15 +39,22 @@ variable "cidr" {
   type        = string
   default     = "10.179.0.0/20"
   description = "Network range for created VNet"
+<<<<<<< HEAD
   validation {
     condition     = can(cidrhost(var.cidr, 0))
     error_message = "Must be a valid IPv4 CIDR block address."
   }
+=======
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 }
 
 variable "tags" {
   type        = map(string)
+<<<<<<< HEAD
   description = "A mapping of tags to assign to the resource"
+=======
+  description = "Optional tags to add to resources"
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
   default     = {}
 }
 
@@ -63,7 +70,10 @@ variable "azure_client_id" {
 variable "azure_client_secret" {
   description = "azure client secret"
   type        = string
+<<<<<<< HEAD
   sensitive   = true
+=======
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 }
 
 variable "azure_tenant_id" {
@@ -71,7 +81,10 @@ variable "azure_tenant_id" {
   type        = string
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 variable "create_duration" {
   description = "Value of time wating per secound"
   type        = string
@@ -86,8 +99,13 @@ variable "environment" {
 
 variable "sku_name" {
   description = "value"
+<<<<<<< HEAD
   type        = string
   default     = "standard"
+=======
+  type = string
+  default = "standard"
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 }
 
 ## Additional when need multi workspace ##
@@ -106,10 +124,13 @@ variable "databricks_sku" {
   description = "The SKU to use for the Databricks workspace"
   type        = string
   default     = "premium"
+<<<<<<< HEAD
   validation {
     condition     = contains(["standard", "premium", "trial"], var.databricks_sku)
     error_message = "Allowed values for databricks_sku are 'standard', 'premium', or 'trial'."
   }
+=======
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 }
 variable "vnet_id" {
   description = "The ID of the Virtual Network where this Databricks workspace should be created"
@@ -127,9 +148,12 @@ variable "public_subnet_name" {
   description = "The name of the Public Subnet within the Virtual Network"
   type        = string
   default     = null
+<<<<<<< HEAD
 }
 
 variable "prefix" {
   type        = string
   description = "Prefix for resource names"
+=======
+>>>>>>> 49c1599a9fe7303faee4d2e9a696ea7bd402d197
 }
